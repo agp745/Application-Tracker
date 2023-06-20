@@ -1,0 +1,22 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model applications {
+  id               BigInt    @id @default(autoincrement())
+  created_at       DateTime? @default(now()) @db.Timestamptz(6)
+  company          String    @db.VarChar
+  applied_date     DateTime  @db.Date
+  position         String    @db.VarChar
+  location         String    @db.VarChar
+  salary           Int?
+  application_type String    @db.VarChar
+  cover_letter     Boolean
+  status           String    @db.VarChar
+}
