@@ -25,7 +25,7 @@ export async function addApplication(app: Application) {
 export async function getApplications() {
     try {
         const applications = await prisma.applications.findMany()
-        return {applications}
+        return { applications }
     } catch (error) {
         return { error }
     }
