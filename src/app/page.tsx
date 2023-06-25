@@ -1,18 +1,21 @@
-import type { Application } from "@/lib/utils/types"
+import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
-async function GetData() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/applications`)
-  if (!res.ok) throw new Error ('error while fetching data')
-  return res.json()
-}
 
-export default async function Home() {
+export default function Home() {
 
-  const { applications } = await GetData() as {applications: Application[]}
 
   return (
-    <main className="uppercase">
-      <div>home</div>
+    <main className="flex justify-center items-center w-full h-screen">
+      <Link href="/applications">
+        <Button 
+          variant="link"
+          size="lg"
+          className="text-white bg-neutral-100/5 border border-neutral-100/10"
+        >
+          Go to Applications
+        </Button>
+      </Link>
     </main>
   )
 }
