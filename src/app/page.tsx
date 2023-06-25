@@ -10,8 +10,6 @@ export default async function Home() {
 
   const { applications } = await GetData() as {applications: Application[]}
 
-  console.log(applications)
-
   return (
     <main className="uppercase">
       <div>home</div>

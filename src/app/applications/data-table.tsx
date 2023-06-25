@@ -1,11 +1,20 @@
 "use client"
 
+import { useState } from "react"
+import { ChevronDownIcon } from '@heroicons/react/24/outline'
+
 import {
   ColumnDef,
+  ColumnFiltersState,
+  VisibilityState,
   flexRender,
   getCoreRowModel,
+  getFilteredRowModel,
   useReactTable,
 } from "@tanstack/react-table"
+
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
 
 import {
   Table,
@@ -16,22 +25,77 @@ import {
   TableRow,
 } from "@/components/ui/table"
 
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
 }
 
-export function DataTable<TData, TValue>({
-  columns,
-  data,
-}: DataTableProps<TData, TValue>) {
+export function DataTable<TData, TValue>({ columns,data }: DataTableProps<TData, TValue>) {
+
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
+
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    onColumnFiltersChange: setColumnFilters,
+    getFilteredRowModel: getFilteredRowModel(),
+    onColumnVisibilityChange: setColumnVisibility,
+    state: {
+        columnFilters,
+        columnVisibility
+    }
   })
 
   return (
+    <>
+    <div className="flex items-center py-4">
+        <Input
+          placeholder="Filter positions..."
+          value={(table.getColumn("position")?.getFilterValue() as string) ?? ""}
+          onChange={(event) =>
+            table.getColumn("position")?.setFilterValue(event.target.value)
+          }
+          className="max-w-sm"
+        />
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="secondary" className="ml-auto text-white bg-black hover:bg-neutral-100/10 border border-neutral-700">
+              Columns
+              <ChevronDownIcon className="text-white w-4 h-4 ml-2" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            {table
+              .getAllColumns()
+              .filter(
+                (column) => column.getCanHide()
+              )
+              .map((column) => {
+                return (
+                  <DropdownMenuCheckboxItem
+                    key={column.id}
+                    className="capitalize"
+                    checked={column.getIsVisible()}
+                    onCheckedChange={(value) =>
+                      column.toggleVisibility(!!value)
+                    }
+                  >
+                    {column.id}
+                  </DropdownMenuCheckboxItem>
+                )
+              })}
+          </DropdownMenuContent>
+        </DropdownMenu>
+    </div>
     <div className="rounded-md border">
       <Table>
         <TableHeader>
@@ -76,5 +140,6 @@ export function DataTable<TData, TValue>({
         </TableBody>
       </Table>
     </div>
+    </>
   )
 }
