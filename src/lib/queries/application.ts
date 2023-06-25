@@ -1,5 +1,5 @@
 import { prisma } from ".";
-import type { Application } from "../types";
+import type { Application } from "../utils/types";
 
 export async function addApplication(app: Application) {
     const { company, applied_date, position, location, salary, application_type, cover_letter, status } = app

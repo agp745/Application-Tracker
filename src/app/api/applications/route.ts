@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { getApplications, addApplication } from "@/utils/queries/application";
-import { getErrorMessage } from "@/utils/errorMessage";
+import { getApplications, addApplication } from "@/lib/queries/application";
+import { getErrorMessage } from "@/lib/utils/errorMessage";
 
 export async function GET() {
     try {
