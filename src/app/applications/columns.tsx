@@ -26,7 +26,16 @@ export const columns: ColumnDef<Application>[] = [
   },
   {
     accessorKey: "salary",
-    header: "Salary",
+    header: () => <div className="text-right">Salary</div>,
+    cell: ({ row }) => {
+        const amount = parseFloat(row.getValue("salary"))
+        const formatted = new Intl.NumberFormat("en-us", {
+            style: "currency",
+            currency: "USD"
+        }).format(amount)
+
+        return <div className="text-right font-medium">{formatted}</div>
+    }
   },
   {
     accessorKey: "application_type",
