@@ -41,6 +41,7 @@ export function DataTable<TData, TValue>({ columns,data }: DataTableProps<TData,
 
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
+  const [isRotated, setIsRotated] = useState<boolean>(false)
 
   const table = useReactTable({
     data,
@@ -68,7 +69,10 @@ export function DataTable<TData, TValue>({ columns,data }: DataTableProps<TData,
         />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="secondary" className="ml-auto text-white bg-black hover:bg-neutral-100/10 border border-neutral-700">
+            <Button 
+              variant="secondary"
+              onClick={() => setIsRotated(!isRotated)}
+              className="ml-auto text-white bg-black hover:bg-neutral-100/10 border border-neutral-700 ring-offset-black transition-colors focus-visible:outline-none focus-visible:ring-0 focus-visible:bg-neutral-100/10">
               Columns
               <ChevronDownIcon className="text-white w-4 h-4 ml-2" />
             </Button>
