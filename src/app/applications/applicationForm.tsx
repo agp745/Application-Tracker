@@ -6,6 +6,8 @@ import { useForm } from "react-hook-form"
 import { format } from "date-fns"
 import { CalendarIcon } from "lucide-react"
 
+import { useRouter } from 'next/navigation'
+
 import { cn } from "@/lib/utils/ui-utils"
 
 import { Calendar } from "@/components/ui/calendar"
@@ -34,8 +36,6 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover"
 import { toast } from "@/components/ui/use-toast"
-import { ReactNode } from "react"
-import { json } from "stream/consumers"
 
 const formSchema = z.object({
     company: z.string({ required_error: "company name is required" }).min(1),
@@ -48,24 +48,27 @@ const formSchema = z.object({
     status: z.string({ required_error: "status is required" })
 })
 
-export function ProfileForm() {
+export function ApplicationForm() {
+
+  const router = useRouter()
+
     const form = useForm<z.infer<typeof formSchema>>({
       resolver: zodResolver(formSchema),
       defaultValues: {
-        // company: "",
+        company: "",
         // applied_date: new Date(),
-        // position: "",
-        // location: "",
-        // salary: "",
+        position: "",
+        location: "",
+        salary: "",
         // application_type: "",
         cover_letter: false,
         status: "pending",
       },
     })
    
-    function onSubmit(data: z.infer<typeof formSchema>) {
+    async function onSubmit(data: z.infer<typeof formSchema>) {
 
-      const res = fetch(`${process.env.NEXT_PUBLIC_URL}/api/applications`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/applications`, {
         method: "post",
         body: JSON.stringify(data),
         headers: {
@@ -73,7 +76,11 @@ export function ProfileForm() {
         }
       })
 
-      console.log(res)
+      const result = await res.json()
+      console.log(result)
+      router.refresh()
+
+      form.reset()
     
       toast({
         title: "You submitted the following application",
@@ -178,7 +185,7 @@ export function ProfileForm() {
                         <FormControl>
                             <div>
                                 <div className="absolute ml-3 mt-2 z-20 text-neutral-200">$</div>
-                                <Input placeholder="70000" {...field} className="relative text-right" />
+                                <Input placeholder="70,000" {...field} className="relative text-right" />
                             </div>
                         </FormControl>
                         <FormMessage/>

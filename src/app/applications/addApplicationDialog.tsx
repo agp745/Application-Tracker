@@ -1,7 +1,5 @@
 "use client"
 
-import { ProfileForm } from "./useForm"
-
 import {
     Dialog,
     DialogContent,
@@ -13,12 +11,14 @@ import {
 } from "@/components/ui/dialog"
 import { Button } from '@/components/ui/button'
 
+import { ApplicationForm } from "./applicationForm"
+
 export function AddApplicationDialouge() {
     return (
         <Dialog>
             <DialogTrigger asChild>
                 <Button variant="outline" className="text-black">
-                    Open
+                    add application
                 </Button>
             </DialogTrigger>
             <DialogContent className='bg-black text-white'>
@@ -28,8 +28,7 @@ export function AddApplicationDialouge() {
                         Fill out the following form
                     </DialogDescription>
                 </DialogHeader>
-                
-                <ProfileForm/>
+                <ApplicationForm />
             </DialogContent>
         </Dialog>
     )

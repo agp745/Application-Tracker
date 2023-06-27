@@ -2,10 +2,7 @@
 
 import type { Application } from "@/lib/utils/types"
 import { ColumnDef } from "@tanstack/react-table"
-
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
-
+import format from "date-fns/format"
 
 export const columns: ColumnDef<Application>[] = [
   {
@@ -15,6 +12,12 @@ export const columns: ColumnDef<Application>[] = [
   {
     accessorKey: "applied_date",
     header: "Date Applied",
+    // cell: ({row}) => {
+    //   const date = row.getValue("applied_date") as number | Date
+    //   const formatted = format(date, "PPP")
+
+    //   return <div>{formatted}</div>
+    // }
   },
   {
     accessorKey: "position",
