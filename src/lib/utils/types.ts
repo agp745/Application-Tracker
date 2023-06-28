@@ -3,6 +3,7 @@ type Application_Type = string | 'website' | 'linkedin' | 'indeed' | 'other'
 type Status = 'pending' | 'accepted' | 'rejected'
 
 export type Application = {
+    id: number,
     company: string,
     applied_date: Date,
     position: string,

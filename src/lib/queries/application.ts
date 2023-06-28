@@ -24,7 +24,11 @@ export async function addApplication(app: Application) {
 
 export async function getApplications() {
     try {
-        const applications = await prisma.applications.findMany()
+        const applications = await prisma.applications.findMany({
+            orderBy: {
+                applied_date: 'asc'
+            }
+        })
         return { applications }
     } catch (error) {
         return { error }

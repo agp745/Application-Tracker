@@ -18,7 +18,6 @@ async function getData(): Promise<DataRequest> {
 
 export default async function ApplicationsPage() {
   const { applications } = await getData() 
-  console.log(applications)
   return (
     <div className="container mx-auto py-10">
       <AddApplicationDialouge />

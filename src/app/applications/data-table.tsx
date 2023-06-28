@@ -5,11 +5,13 @@ import { ChevronDownIcon } from '@heroicons/react/24/outline'
 
 import {
   ColumnDef,
+  SortingState,
   ColumnFiltersState,
   VisibilityState,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
+  getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table"
 
@@ -42,6 +44,7 @@ export function DataTable<TData, TValue>({ columns,data }: DataTableProps<TData,
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [isRotated, setIsRotated] = useState<boolean>(false)
+  const [sorting, setSorting] = useState<SortingState>([])
 
   const table = useReactTable({
     data,
@@ -50,9 +53,12 @@ export function DataTable<TData, TValue>({ columns,data }: DataTableProps<TData,
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
+    onSortingChange: setSorting,
+    getSortedRowModel: getSortedRowModel(),
     state: {
-        columnFilters,
-        columnVisibility
+      columnFilters,
+      columnVisibility,
+      sorting,
     }
   })
 
