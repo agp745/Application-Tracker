@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getApplications, addApplication } from "@/lib/queries/application";
+import { getApplications, addApplication, deleteApplication } from "@/lib/queries/application";
 import { getErrorMessage } from "@/lib/utils/errorMessage";
 import { Prisma } from "@prisma/client";
 import type { Application } from "@/lib/utils/types";
@@ -57,6 +57,42 @@ export async function POST(req: Request) {
         const { newApplication, error } = await addApplication(body)
         if (error) throw new Error (JSON.stringify(error))
         return NextResponse.json({ success: true, newApplication })
+    } catch (e) {
+        if (e instanceof Prisma.PrismaClientInitializationError) {
+            console.log(1)
+            return NextResponse.json({ success: false, error: { code: e.errorCode, message: e.message } })
+        }
+        else if (e instanceof Prisma.PrismaClientKnownRequestError) {
+            console.log(2)
+            return NextResponse.json({ success: false, error: { code: e.code, message: e.message } })
+        }
+        else if (e instanceof Prisma.PrismaClientRustPanicError) {
+            console.log(3)
+            return NextResponse.json({ success: false, error: { code: e.cause, message: e.message } })
+        }
+        else if (e instanceof Prisma.PrismaClientUnknownRequestError) {
+            console.log(4)
+            return NextResponse.json({ success: false, error: { code: e.cause, message: e.message } })
+        }
+        else if (e instanceof Prisma.PrismaClientValidationError) {
+            console.log(5)
+            return NextResponse.json({ success: false, error: { code: e.cause, message: e.message } })
+        }
+        else {
+            console.log(6)
+            return NextResponse.json({ success: false, error: getErrorMessage(e)})
+        }
+    }
+}
+
+export async function DELETE(req: Request) {
+    const url = new URL(req.url)
+    const id = url.searchParams.get('id')
+    
+    try {
+        const { deletedApplication, error } = await deleteApplication(Number(id))
+        if (error) throw new Error (JSON.stringify(error))
+        return NextResponse.json({ success: true, deletedApplication })
     } catch (e) {
         if (e instanceof Prisma.PrismaClientInitializationError) {
             console.log(1)

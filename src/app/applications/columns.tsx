@@ -1,6 +1,6 @@
 "use client"
 
-import type { Application } from "@/lib/utils/types"
+import type { Application, Status, ApplicationWithId } from "@/lib/utils/types"
 import { Button } from "@/components/ui/button"
 import { toast } from "@/components/ui/use-toast"
 import { ColumnDef } from "@tanstack/react-table"
@@ -13,11 +13,25 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
+import { useRouter } from "next/navigation"
+
 import format from "date-fns/format"
 import parseISO from "date-fns/parseISO"
 
 import { ArrowUpDown, MoreHorizontal } from "lucide-react"
-import { XMarkIcon, CheckIcon } from '@heroicons/react/24/outline'
+import { XMarkIcon, CheckIcon, ClockIcon } from '@heroicons/react/24/outline'
+
+const onSubmit = async (id: number) => {
+
+  await fetch(`${process.env.NEXT_PUBLIC_URL}/api/applications?id=${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+
+}
+
 
 export const columns: ColumnDef<Application>[] = [
   {
@@ -31,7 +45,7 @@ export const columns: ColumnDef<Application>[] = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          className="text-left p-0"
+          className="text-left"
         >
           Date Applied
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -87,12 +101,21 @@ export const columns: ColumnDef<Application>[] = [
   },
   {
     accessorKey: "status",
-    header: "Status",
+    header: () => <div className="text-center">Status</div>,
+    cell: ({row}) => {
+      const status = row.getValue("status") as Status
+      let value
+      if (status === 'accepted') value = <CheckIcon className="w-4 h-4 text-green-600" />
+      else if (status === 'rejected') value = <XMarkIcon className="w-4 h-4 text-red-600" />
+      else value = <ClockIcon className="w-4 h-4 text-yellow-600" />
+
+      return <div className="flex justify-center">{value}</div>
+    }
   },
   {
     id: "actions",
     cell: ({ row }) => {
-      const application = row.original
+      const application = row.original as ApplicationWithId
  
       return (
         <DropdownMenu>
@@ -112,7 +135,7 @@ export const columns: ColumnDef<Application>[] = [
               onClick={() => {
                 navigator.clipboard.writeText(String(JSON.stringify(application)))
                 toast({
-                  className: 'bg-black',
+                  className: 'bg-black border-green-700',
                   title: "Application data copied onto your clipboard"
                 })
               }}
@@ -122,12 +145,15 @@ export const columns: ColumnDef<Application>[] = [
             <DropdownMenuItem className="text-neutral-200">
               Update Application
             </DropdownMenuItem>
-            <DropdownMenuSeparator className="text-neutral-700"/>
+            <DropdownMenuSeparator/>
             <DropdownMenuItem 
-              className="text-red-500"
-              onClick={() => {
+              className="text-red-500 hover:text-red-500"
+              onClick={async () => {
+                // const router = useRouter()
+                await onSubmit(application.id)
+                // router.refresh()
                 toast({
-                  className: 'bg-black',
+                  className: 'bg-black border-red-700',
                   title: "Application successfully deleted"
                 })
               }}
