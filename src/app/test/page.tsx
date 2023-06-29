@@ -1,6 +1,6 @@
 import { IconSpin } from "./iconSpin"
 import { AddApplicationDialouge } from "./addApplication"
-import { UpdateStatusDropdown } from "../applications/updateStatus"
+import { UpdateStatusDropdown } from "../../components/applicationsPage/updateStatus"
 
 export default function TestPage() {
 

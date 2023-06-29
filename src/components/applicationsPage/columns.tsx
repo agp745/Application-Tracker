@@ -1,6 +1,7 @@
 "use client"
 
 import type { Application, Status, ApplicationWithId } from "@/lib/utils/types"
+import type { ColumnDefTemplate, CellContext, Row } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button"
 import { toast } from "@/components/ui/use-toast"
 import { ColumnDef } from "@tanstack/react-table"
@@ -41,6 +42,84 @@ const onSubmit = async (id: number) => {
     }
   })
 
+}
+
+const ActionCell = ({ row }: {row: Row<Application>}) => {
+  const application = row.original as ApplicationWithId
+      const router = useRouter()
+
+      const formData = {
+        company: application.company,
+        applied_date: application.applied_date,
+        position: application.position,
+        location: application.location,
+        salary: String(application.salary),
+        application_type: application.application_type,
+        cover_letter: application.cover_letter,
+        status: application.status,
+      }
+      
+      return (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="h-8 w-8 p-0">
+              <span className="sr-only">Open menu</span>
+              <MoreHorizontal className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent 
+            align="end"
+            className="bg-black border-neutral-700"
+          >
+            <DropdownMenuLabel className="text-neutral-200">Actions</DropdownMenuLabel>
+            <DropdownMenuItem
+              className="text-neutral-200"
+              onClick={() => {
+                navigator.clipboard.writeText(String(JSON.stringify(application)))
+                toast({
+                  className: 'bg-black border-green-700',
+                  title: "Application data copied onto your clipboard"
+                })
+              }}
+            >
+              Copy Application Data
+            </DropdownMenuItem>
+            <DropdownMenuItem 
+              className="text-neutral-200"
+              onSelect={(event) => event.preventDefault() }
+            >
+              <Dialog>
+                <DialogTrigger asChild>
+                  <div>Update Application</div>
+                </DialogTrigger>
+                <DialogContent className='bg-black text-white'>
+                  <DialogHeader>
+                    <DialogTitle>Update Application</DialogTitle>
+                    <DialogDescription>
+                        Update the following form
+                    </DialogDescription>
+                  </DialogHeader>
+                  <UpdateForm application={application}  />
+                </DialogContent>
+              </Dialog>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator/>
+            <DropdownMenuItem 
+              className="text-red-500 hover:text-red-500"
+              onClick={async () => {
+                await onSubmit(application.id)
+                router.refresh()
+                toast({
+                  className: 'bg-black border-red-700',
+                  title: "Application successfully deleted"
+                })
+              }}
+            >
+              Delete Application
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      )
 }
 
 
@@ -127,82 +206,6 @@ export const columns: ColumnDef<Application>[] = [
   },
   {
     id: "actions",
-    cell: ({ row }) => {
-      const application = row.original as ApplicationWithId
-      const router = useRouter()
-
-      const formData = {
-        company: application.company,
-        applied_date: application.applied_date,
-        position: application.position,
-        location: application.location,
-        salary: String(application.salary),
-        application_type: application.application_type,
-        cover_letter: application.cover_letter,
-        status: application.status,
-      }
-      
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent 
-            align="end"
-            className="bg-black border-neutral-700"
-          >
-            <DropdownMenuLabel className="text-neutral-200">Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              className="text-neutral-200"
-              onClick={() => {
-                navigator.clipboard.writeText(String(JSON.stringify(application)))
-                toast({
-                  className: 'bg-black border-green-700',
-                  title: "Application data copied onto your clipboard"
-                })
-              }}
-            >
-              Copy Application Data
-            </DropdownMenuItem>
-            <DropdownMenuItem 
-              className="text-neutral-200"
-              onSelect={(event) => event.preventDefault() }
-            >
-              <Dialog>
-                <DialogTrigger asChild>
-                  <div>Update Application</div>
-                </DialogTrigger>
-                <DialogContent className='bg-black text-white'>
-                  <DialogHeader>
-                    <DialogTitle>Update Application</DialogTitle>
-                    <DialogDescription>
-                        Update the following form
-                    </DialogDescription>
-                  </DialogHeader>
-                  <UpdateForm application={application}  />
-                </DialogContent>
-              </Dialog>
-            </DropdownMenuItem>
-            <DropdownMenuSeparator/>
-            <DropdownMenuItem 
-              className="text-red-500 hover:text-red-500"
-              onClick={async () => {
-                await onSubmit(application.id)
-                router.refresh()
-                toast({
-                  className: 'bg-black border-red-700',
-                  title: "Application successfully deleted"
-                })
-              }}
-            >
-              Delete Application
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      )
-    }
+    cell: ActionCell
   },
 ]

@@ -1,8 +1,8 @@
-import { columns } from "./columns"
-import { DataTable } from "./data-table"
+import { columns } from "@/components/applicationsPage/columns"
+import { DataTable } from "@/components/applicationsPage/data-table"
 import type { Application } from "@/lib/utils/types"
 
-import { ApplicationDialouge } from "./applicationDialog"
+import { ApplicationDialouge } from "../../components/applicationsPage/applicationDialog"
 
 interface DataRequest {
     success: boolean,
