@@ -12,8 +12,19 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogFooter
+} from "@/components/ui/dialog"
 
 import { useRouter } from "next/navigation"
+import { UpdateForm } from "./updateForm"
+import { UpdateStatusDropdown } from "./updateStatus"
 
 import format from "date-fns/format"
 import parseISO from "date-fns/parseISO"
@@ -103,20 +114,34 @@ export const columns: ColumnDef<Application>[] = [
     accessorKey: "status",
     header: () => <div className="text-center">Status</div>,
     cell: ({row}) => {
+      const application = row.original as ApplicationWithId
       const status = row.getValue("status") as Status
       let value
       if (status === 'accepted') value = <CheckIcon className="w-4 h-4 text-green-600" />
       else if (status === 'rejected') value = <XMarkIcon className="w-4 h-4 text-red-600" />
       else value = <ClockIcon className="w-4 h-4 text-yellow-600" />
 
-      return <div className="flex justify-center">{value}</div>
+      // return <div className="flex justify-center">{value}</div>
+      return <div className="flex justify-center"><UpdateStatusDropdown currentStatus={status} id={application.id} /></div>
     }
   },
   {
     id: "actions",
     cell: ({ row }) => {
       const application = row.original as ApplicationWithId
- 
+      const router = useRouter()
+
+      const formData = {
+        company: application.company,
+        applied_date: application.applied_date,
+        position: application.position,
+        location: application.location,
+        salary: String(application.salary),
+        application_type: application.application_type,
+        cover_letter: application.cover_letter,
+        status: application.status,
+      }
+      
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -142,16 +167,31 @@ export const columns: ColumnDef<Application>[] = [
             >
               Copy Application Data
             </DropdownMenuItem>
-            <DropdownMenuItem className="text-neutral-200">
-              Update Application
+            <DropdownMenuItem 
+              className="text-neutral-200"
+              onSelect={(event) => event.preventDefault() }
+            >
+              <Dialog>
+                <DialogTrigger asChild>
+                  <div>Update Application</div>
+                </DialogTrigger>
+                <DialogContent className='bg-black text-white'>
+                  <DialogHeader>
+                    <DialogTitle>Update Application</DialogTitle>
+                    <DialogDescription>
+                        Update the following form
+                    </DialogDescription>
+                  </DialogHeader>
+                  <UpdateForm application={application}  />
+                </DialogContent>
+              </Dialog>
             </DropdownMenuItem>
             <DropdownMenuSeparator/>
             <DropdownMenuItem 
               className="text-red-500 hover:text-red-500"
               onClick={async () => {
-                // const router = useRouter()
                 await onSubmit(application.id)
-                // router.refresh()
+                router.refresh()
                 toast({
                   className: 'bg-black border-red-700',
                   title: "Application successfully deleted"

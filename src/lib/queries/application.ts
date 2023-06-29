@@ -26,7 +26,7 @@ export async function getApplications() {
     try {
         const applications = await prisma.applications.findMany({
             orderBy: {
-                applied_date: 'asc'
+                applied_date: 'desc'
             }
         })
         return { applications }
@@ -42,6 +42,36 @@ export async function deleteApplication(applicationId: number) {
         })
         return { deletedApplication }
     } catch (error) {
+        return { error }
+    }
+}
+
+export async function updateApplication(applicationId: number, applicationData: Application) {
+    try {
+        const updatedApplication = await prisma.applications.update({
+            where: {
+                id: applicationId
+            },
+            data: applicationData
+        })
+        return { updatedApplication }
+    } catch (error) {
+        return { error }
+    }
+}
+
+export async function updateApplicationStatus(applicationId: number, status: string) {
+    try {
+        await prisma.applications.update({
+            where: {
+                id: applicationId
+            },
+            data: {status}
+        })
+        const message = `satus updated to ${status}`
+        return { message }
+    }
+    catch (error) {
         return { error }
     }
 }

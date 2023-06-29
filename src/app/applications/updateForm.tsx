@@ -1,5 +1,6 @@
 "use client"
 
+import type { ApplicationWithId } from "@/lib/utils/types"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { useForm } from "react-hook-form"
@@ -48,28 +49,28 @@ const formSchema = z.object({
     status: z.string({ required_error: "status is required" })
 })
 
-export function ApplicationForm() {
+export function UpdateForm({ application }: {application: ApplicationWithId}) {
 
   const router = useRouter()
 
     const form = useForm<z.infer<typeof formSchema>>({
       resolver: zodResolver(formSchema),
       defaultValues: {
-        company: "",
-        // applied_date: new Date(),
-        position: "",
-        location: "",
-        salary: "",
-        // application_type: "",
-        cover_letter: false,
-        status: "pending",
+        company: application.company,
+        applied_date: application.applied_date,
+        position: application.position,
+        location: application.location,
+        salary: String(application.salary),
+        application_type: application.application_type,
+        cover_letter: application.cover_letter,
+        status: application.status,
       }
     })
    
     async function onSubmit(data: z.infer<typeof formSchema>) {
 
       const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/applications`, {
-        method: "post",
+        method: "PATCH",
         body: JSON.stringify(data),
         headers: {
             "Content-Type": "application/json"

@@ -13,19 +13,25 @@ import { Button } from '@/components/ui/button'
 
 import { ApplicationForm } from "./applicationForm"
 
-export function AddApplicationDialouge() {
+interface DialogProps {
+    buttonName: string,
+    title: string,
+    description: string,
+}
+
+export function ApplicationDialouge({ buttonName, title, description }: DialogProps) {
     return (
         <Dialog>
             <DialogTrigger asChild>
                 <Button variant="outline" className="text-black">
-                    add application
+                    {buttonName}
                 </Button>
             </DialogTrigger>
             <DialogContent className='bg-black text-white'>
                 <DialogHeader>
-                    <DialogTitle>Add an application</DialogTitle>
+                    <DialogTitle>{title}</DialogTitle>
                     <DialogDescription>
-                        Fill out the following form
+                        {description}
                     </DialogDescription>
                 </DialogHeader>
                 <ApplicationForm />

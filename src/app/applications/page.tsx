@@ -2,7 +2,7 @@ import { columns } from "./columns"
 import { DataTable } from "./data-table"
 import type { Application } from "@/lib/utils/types"
 
-import { AddApplicationDialouge } from "./addApplicationDialog"
+import { ApplicationDialouge } from "./applicationDialog"
 
 interface DataRequest {
     success: boolean,
@@ -20,7 +20,7 @@ export default async function ApplicationsPage() {
   const { applications } = await getData() 
   return (
     <div className="container mx-auto py-10">
-      <AddApplicationDialouge />
+      <ApplicationDialouge buttonName="add application" title="Add an Application" description="Fill out the following form"/>
       <DataTable columns={columns} data={applications} />
     </div>
   )
