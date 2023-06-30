@@ -64,6 +64,8 @@ export function DataTable<TData, TValue>({ columns,data }: DataTableProps<TData,
 
   return (
     <>
+    { data ? (
+      <>
     <div className="flex items-center py-4">
         <Input
           placeholder="Filter positions..."
@@ -150,6 +152,7 @@ export function DataTable<TData, TValue>({ columns,data }: DataTableProps<TData,
         </TableBody>
       </Table>
     </div>
+    </>) : <div>Error getting data</div>}
     </>
   )
 }
