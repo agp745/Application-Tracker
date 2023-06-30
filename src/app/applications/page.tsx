@@ -1,7 +1,7 @@
+// 'use client'
+
 import { columns } from "@/components/applicationsPage/columns"
 import { DataTable } from "@/components/applicationsPage/data-table"
-import { getApplications } from "@/lib/queries/application"
-import { prisma } from "@/lib/queries"
 import type { Application } from "@/lib/utils/types"
 
 import { ApplicationDialouge } from "../../components/applicationsPage/applicationDialog"
@@ -16,6 +16,10 @@ async function getData(): Promise<DataRequest> {
     const res = await fetch(`${url}/api/applications`, {cache: "no-store"})
     if (!res.ok) throw new Error ('error while fetching data')
     return res.json()
+    // const res = await fetch(`/api/applications`, {cache: "no-store"})
+    // if (!res.ok) throw new Error ('error while fetching data')
+    // return res.json()
+
 }
 
 export default async function ApplicationsPage() {
