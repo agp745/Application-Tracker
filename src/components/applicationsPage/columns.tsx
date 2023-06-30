@@ -143,9 +143,8 @@ export const columns: ColumnDef<Application>[] = [
       )
     },
     cell: ({row}) => {
-      const date = parseISO(row.getValue("applied_date"))
+      const date = (row.getValue("applied_date")) as Date
       const formatted = format(date, "PPP")
-
       return <div>{formatted}</div>
     }
   },
