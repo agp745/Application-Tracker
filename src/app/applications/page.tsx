@@ -10,7 +10,8 @@ interface DataRequest {
 }
 
 async function getData(): Promise<DataRequest> {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/applications`, {cache: "no-store"})
+    const url = process.env.NODE_ENV === 'production' ? process.env.NEXT_PUBLIC_URL : 'http://localhost:3000';
+    const res = await fetch(`${url}/api/applications`, {cache: "no-store"})
     if (!res.ok) throw new Error ('error while fetching data')
     
     return res.json()
