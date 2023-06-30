@@ -9,7 +9,8 @@ export default async function ApplicationsPage() {
 
   const { applications } = await getApplications() 
 
-  const transformedApplications: Application[] = applications?.map((application) => ({
+  const transformedApplications: ApplicationWithId[] = applications?.map((application) => ({
+    id: application.id,
     company: application.company,
     applied_date: application.applied_date,
     position: application.position,
