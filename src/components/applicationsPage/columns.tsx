@@ -162,6 +162,9 @@ export const columns: ColumnDef<ApplicationWithId>[] = [
     header: () => <div className="text-right">Salary</div>,
     cell: ({ row }) => {
         const amount = parseFloat(row.getValue("salary"))
+        if (amount == 0) {
+          return <div className="text-right font-medium">n/a</div>
+        }
         const formatted = new Intl.NumberFormat("en-us", {
             style: "currency",
             currency: "USD"

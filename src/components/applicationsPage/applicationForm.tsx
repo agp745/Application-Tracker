@@ -184,6 +184,7 @@ export function ApplicationForm() {
                                 <Input placeholder="70,000" {...field} className="relative text-right" />
                             </div>
                         </FormControl>
+                        <FormDescription className="ml-2 italic">if no salary, enter <span className="font-bold">0</span></FormDescription>
                         <FormMessage/>
                     </FormItem>
                 )}
