@@ -5,6 +5,8 @@ import type { Application, ApplicationWithId, Status } from "@/lib/utils/types"
 
 import { ApplicationDialouge } from "../../components/applicationsPage/applicationDialog"
 
+export const revalidate = 0 
+
 export default async function ApplicationsPage() {
 
   const { applications } = await getApplications() 
