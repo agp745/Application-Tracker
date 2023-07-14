@@ -13,7 +13,7 @@ export default function Home() {
           size="lg"
           className="text-white bg-neutral-100/5 border border-neutral-100/10"
         >
-          Go to Applications
+          Applications
         </Button>
       </Link>
       <Link href="/test">
@@ -22,7 +22,16 @@ export default function Home() {
           size="lg"
           className="text-white bg-neutral-100/5 border border-neutral-100/10"
         >
-          Go to Tests
+          Tests
+        </Button>
+      </Link>
+      <Link href="/login">
+        <Button 
+          variant="link"
+          size="lg"
+          className="text-white bg-neutral-100/5 border border-neutral-100/10"
+        >
+          Login
         </Button>
       </Link>
     </main>
