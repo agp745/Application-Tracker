@@ -1,44 +1,4 @@
-import Image from "next/image"
-
-const GoogleButton = () => {
-    return (
-        <button
-            // onClick={() => signIn('google', {callbackUrl})}
-            className='flex justify-center relative w-full px-3 py-2 bg-neutral-900 hover:bg-neutral-800 border-[0.5px] focus:outline-2 border-neutral-500 transition-all duration-100 ease-in rounded-md text-neutral-400 placeholder-neutral-500 text-sm'
-        >
-            <Image 
-                src='/google-icon.svg'
-                alt='google icon'
-                width={24}
-                height={24}
-                className='absolute left-3 top-[6px]'
-            />
-            <div className='font-thin'>
-                login with <span className='font-semibold'>Google</span>
-            </div>
-        </button>
-    )
-}
-
-const GithubButton = () => {
-    return (
-        <button
-            // onClick={() => signIn('google', {callbackUrl})}
-            className='flex justify-center relative w-full px-3 py-2 bg-neutral-900 hover:bg-neutral-800 border-[0.5px] focus:outline-2 border-neutral-500 transition-all duration-100 ease-in rounded-md text-neutral-400 placeholder-neutral-500 text-sm'
-        >
-            <Image 
-                src='/github-icon.svg'
-                alt='github icon'
-                width={24}
-                height={24}
-                className='absolute left-3 top-[6px]'
-            />
-            <div className='font-thin'>
-                login with <span className='font-semibold'>Github</span>
-            </div>
-        </button>
-    )
-}
+import OAuthButton from "@/components/oAuthButton"
 
 export default function Login() {
     return (
@@ -52,8 +12,8 @@ export default function Login() {
                 <span>Alex Perez</span>
             </div>
             <div className="flex flex-col gap-2 w-1/3 mt-10">
-                <GoogleButton />
-                <GithubButton />
+                <OAuthButton auth="google" />
+                <OAuthButton auth="github" />
             </div>
         </main>
     )

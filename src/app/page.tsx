@@ -1,10 +1,17 @@
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import { redirect } from "next/navigation"
 
+import { getServerSession } from "next-auth"
+import { options } from "./api/auth/[...nextauth]/options"
 
-export default function Home() {
+export default async function Home() {
 
-
+  const session = await getServerSession(options)
+  if (!session) {
+    redirect('/api/auth/signin?callbackUrl=/')
+  }
+  
   return (
     <main className="flex flex-col justify-center items-center gap-3 w-full h-screen">
       <Link href="/applications">
@@ -25,15 +32,16 @@ export default function Home() {
           Tests
         </Button>
       </Link>
-      <Link href="/login">
+      <Link href="/api/auth/signout">
         <Button 
           variant="link"
           size="lg"
           className="text-white bg-neutral-100/5 border border-neutral-100/10"
         >
-          Login
+          Sign Out
         </Button>
       </Link>
+      {session ? <div>logged in</div> : <div>no session</div>}
     </main>
   )
 }
