@@ -22,8 +22,6 @@ export async function POST(req: Request) {
         user_id: data.user_id
     }
 
-    console.log(body)
-
     try {
         const { newApplication, error } = await addApplication(body)
         if (error) throw new Error (JSON.stringify(error))

@@ -29,7 +29,6 @@ export default async function ApplicationsPage({ params }: { params: {user_id: s
     <div className="container mx-auto py-10">
       <ApplicationDialouge buttonName="add application" title="Add an Application" description="Fill out the following form"/>
       {applications ? <DataTable columns={columns} data={transformedApplications} /> : <div>Error fetching data</div>}
-      <div>{params.user_id}</div>
     </div>
   )
 }
