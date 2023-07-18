@@ -8,6 +8,7 @@ import { options } from "./api/auth/[...nextauth]/options"
 export default async function Home() {
 
   const session = await getServerSession(options)
+  console.log(session)
   if (!session) {
     redirect('/api/auth/signin?callbackUrl=/')
   }
@@ -41,7 +42,7 @@ export default async function Home() {
           Sign Out
         </Button>
       </Link>
-      {session ? <div>logged in</div> : <div>no session</div>}
+      {session ? <pre>{JSON.stringify(session, null, 2)}</pre> : <div>no session</div>}
     </main>
   )
 }
