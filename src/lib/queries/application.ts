@@ -2,7 +2,7 @@ import { prisma } from ".";
 import type { Application } from "../utils/types";
 
 export async function addApplication(app: Application) {
-    const { company, applied_date, position, location, salary, application_type, cover_letter, status } = app
+    const { company, applied_date, position, location, salary, application_type, cover_letter, status, user_id } = app
     try {
         const newApplication = await prisma.applications.create({
             data: {
@@ -13,7 +13,8 @@ export async function addApplication(app: Application) {
                 salary,
                 application_type,
                 cover_letter,
-                status
+                status,
+                user_id
             }
         })
         return { newApplication }
@@ -22,9 +23,17 @@ export async function addApplication(app: Application) {
     }
 }
 
-export async function getApplications() {
+// export async function addApplication(app: Application) {
+//     const { company, applied_date, position, location, salary, application_type, cover_letter, status, user_id} = app
+
+// }
+
+export async function getApplications(user_id: string) {
     try {
         const applications = await prisma.applications.findMany({
+            where: {
+                user_id: user_id
+            },
             orderBy: {
                 applied_date: 'desc'
             }

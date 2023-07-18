@@ -37,6 +37,8 @@ import {
 } from "@/components/ui/popover"
 import { toast } from "@/components/ui/use-toast"
 
+import { usePathname } from "next/navigation"
+
 const formSchema = z.object({
     company: z.string({ required_error: "company name is required" }).min(1),
     applied_date: z.date({ required_error: "applied date is required" }),
@@ -51,6 +53,8 @@ const formSchema = z.object({
 export function ApplicationForm() {
 
   const router = useRouter()
+  const pathname = usePathname()
+  const user_id = pathname.replace('/applications/','')
 
     const form = useForm<z.infer<typeof formSchema>>({
       resolver: zodResolver(formSchema),
@@ -68,9 +72,14 @@ export function ApplicationForm() {
    
     async function onSubmit(data: z.infer<typeof formSchema>) {
 
+      const dataWithId = {
+        ...data,
+        user_id
+      }
+
       const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/applications`, {
         method: "post",
-        body: JSON.stringify(data),
+        body: JSON.stringify(dataWithId),
         headers: {
             "Content-Type": "application/json"
         }
