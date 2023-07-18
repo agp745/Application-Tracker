@@ -11,6 +11,7 @@ export type Application = {
     application_type: Application_Type,
     cover_letter: boolean,
     status: Status
+    user_id: string
 }
 
 export type ApplicationWithId = Application & {

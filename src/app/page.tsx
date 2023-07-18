@@ -4,18 +4,20 @@ import { redirect } from "next/navigation"
 
 import { getServerSession } from "next-auth"
 import { options } from "./api/auth/[...nextauth]/options"
+import type { AdapterUser } from "next-auth/adapters"
 
 export default async function Home() {
 
   const session = await getServerSession(options)
-  console.log(session)
+  const user = session?.user as AdapterUser
+
   if (!session) {
     redirect('/api/auth/signin?callbackUrl=/')
   }
   
   return (
     <main className="flex flex-col justify-center items-center gap-3 w-full h-screen">
-      <Link href="/applications">
+      <Link href={`/applications/${user.id}`}>
         <Button 
           variant="link"
           size="lg"
