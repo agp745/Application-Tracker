@@ -47,7 +47,6 @@ const onSubmit = async (id: number) => {
 const ActionCell = ({ row }: {row: Row<ApplicationWithId>}) => {
   const application = row.original as ApplicationWithId
       const router = useRouter()
-      console.log(application)
 
       const formData = {
         company: application.company,
