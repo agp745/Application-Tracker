@@ -7,7 +7,7 @@ export const AvatarHeader = ({ user }: { user: AdapterUser }) => {
     const initials = getInitials(user.name as string)
 
     return(
-        <Avatar>
+        <Avatar className="cursor-pointer">
             <AvatarImage src={user.image as string | undefined} />
             <AvatarFallback>{initials}</AvatarFallback>
         </Avatar>
