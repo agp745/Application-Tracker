@@ -14,3 +14,4 @@
 - user icon / controls
 - protect application pages (only user can edit thier own table)
 - share / export table
+- pagination for table
