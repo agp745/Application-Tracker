@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { ChevronDownIcon } from '@heroicons/react/24/outline'
+import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
 
 import {
   ColumnDef,
@@ -12,6 +12,7 @@ import {
   getCoreRowModel,
   getFilteredRowModel,
   getSortedRowModel,
+  getPaginationRowModel,
   useReactTable,
 } from "@tanstack/react-table"
 
@@ -55,12 +56,15 @@ export function DataTable<TData, TValue>({ columns,data }: DataTableProps<TData,
     onColumnVisibilityChange: setColumnVisibility,
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
     state: {
       columnFilters,
       columnVisibility,
       sorting,
     }
   })
+
+  const { pagination } = table.getState()
 
   return (
     <>
@@ -108,6 +112,7 @@ export function DataTable<TData, TValue>({ columns,data }: DataTableProps<TData,
           </DropdownMenuContent>
         </DropdownMenu>
     </div>
+    <div>
     <div className="rounded-md border">
       <Table>
         <TableHeader>
@@ -151,6 +156,26 @@ export function DataTable<TData, TValue>({ columns,data }: DataTableProps<TData,
           )}
         </TableBody>
       </Table>
+    </div>
+    <div className="flex items-center justify-end space-x-2 py-4">
+      <div>page <span className="font-semibold">{pagination.pageIndex + 1} of {table.getPageCount()}</span></div>
+        <Button
+          variant="default"
+          size="sm"
+          onClick={() => table.previousPage()}
+          disabled={!table.getCanPreviousPage()}
+        >
+          <ChevronLeftIcon className="w-5 h-5 text-white" />
+        </Button>
+        <Button
+          variant="default"
+          size="sm"
+          onClick={() => table.nextPage()}
+          disabled={!table.getCanNextPage()}
+        >
+          <ChevronRightIcon className="w-5 h-5 text-white" />
+        </Button>
+      </div>
     </div>
     </>) : <div>Error getting data</div>}
     </>
