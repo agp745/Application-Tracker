@@ -65,6 +65,7 @@ export function DataTable<TData, TValue>({ columns,data }: DataTableProps<TData,
   })
 
   const { pagination } = table.getState()
+  // table.setPageSize(6)
 
   return (
     <>
