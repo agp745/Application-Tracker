@@ -11,7 +11,6 @@
 - loading ui / skeleton
 - auto-complete ui fix
 - google maps integration for location selection
-- user icon / controls
 - protect application pages (only user can edit thier own table)
 - share / export table
-- pagination for table
+- add ghosted status
