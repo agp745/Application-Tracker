@@ -1,6 +1,6 @@
 type Location = string | 'remote' | 'hybrid'
 type Application_Type = string | 'website' | 'linkedin' | 'indeed' | 'other'
-export type Status = 'pending' | 'accepted' | 'rejected'
+export type Status = 'pending' | 'accepted' | 'rejected' | 'ghosted'
 
 export type Application = {
     company: string,
