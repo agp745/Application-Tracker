@@ -13,10 +13,10 @@ export const options: NextAuthOptions = {
             clientId: process.env.GITHUB_CLIENTID as string,
             clientSecret: process.env.GITHUB_SECRET as string,
         }),
-        // GoogleProvider({
-        //     clientId: "",
-        //     clientSecret: ""
-        // })
+        GoogleProvider({
+            clientId: process.env.GOOGLE_CLIENTID as string,
+            clientSecret: process.env.GOOGLE_SECRET as string
+        })
     ],
     pages: {
         signIn: '/login'
