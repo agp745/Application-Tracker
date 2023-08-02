@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import { ClockIcon, CheckIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { GhostIcon } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { toast } from "@/components/ui/use-toast"
@@ -29,6 +30,7 @@ export function UpdateStatusDropdown({ currentStatus, id }: UpdateStatusProps ) 
     if (status === 'pending') return <ClockIcon className="w-5 h-5 text-yellow-600 hover:brightness-150 transition-all duration-100 ease-in"/>
     else if (status === 'accepted') return <CheckIcon className="w-5 h-5 text-green-600 hover:brightness-150 transition-all duration-100 ease-in"/>
     else if (status === 'rejected') return <XMarkIcon className="w-5 h-5 text-red-600 hover:brightness-150 transition-all duration-100 ease-in"/>
+    else if (status === 'ghosted') return <GhostIcon className="w-5 h-5 text-neutral-200 hover:brightness-150 transition-all duration-100 ease-in"/>
     else return <div>error</div>
   }
 
@@ -75,6 +77,10 @@ export function UpdateStatusDropdown({ currentStatus, id }: UpdateStatusProps ) 
           <DropdownMenuRadioItem value="rejected">
             Rejected
             <XMarkIcon className="w-3 h-3 text-red-600 ml-1"/>
+          </DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="ghosted">
+            Ghosted
+            <GhostIcon className="w-3 h-3 text-neutral-200 ml-1"/>
           </DropdownMenuRadioItem>
         </DropdownMenuRadioGroup>
       </DropdownMenuContent>

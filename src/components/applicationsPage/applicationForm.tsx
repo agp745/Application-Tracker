@@ -236,6 +236,7 @@ export function ApplicationForm() {
                                 <SelectItem value="pending">Pending</SelectItem>
                                 <SelectItem value="accepted">Accepted</SelectItem>
                                 <SelectItem value="rejected">Rejected</SelectItem>
+                                <SelectItem value="ghosted">Ghosted</SelectItem>
                             </SelectContent>
                         </Select>
                     </FormItem>
