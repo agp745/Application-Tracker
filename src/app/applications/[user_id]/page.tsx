@@ -28,7 +28,7 @@ export default async function ApplicationsPage({ params }: { params: {user_id: s
   const user = await getUser(params.user_id)
   
   return (
-    <div className="container mx-auto py-10">
+    <div className="container mx-auto py-5">
       <div className="fixed top-0 right-0 p-4">
         <AvatarPopover>
           <AvatarHeader user={user} />
