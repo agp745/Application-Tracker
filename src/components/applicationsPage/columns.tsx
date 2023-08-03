@@ -29,6 +29,7 @@ import { UpdateStatusDropdown } from "./updateStatus"
 
 import format from "date-fns/format"
 import parseISO from "date-fns/parseISO"
+import { utcToZonedTime } from "date-fns-tz";
 
 import { ArrowUpDown, MoreHorizontal } from "lucide-react"
 import { XMarkIcon, CheckIcon, ClockIcon } from '@heroicons/react/24/outline'
@@ -143,8 +144,9 @@ export const columns: ColumnDef<ApplicationWithId>[] = [
       )
     },
     cell: ({row}) => {
-      const date = (row.getValue("applied_date")) as Date
-      const formatted = format(date, "PPP")
+      const date = new Date(row.getValue("applied_date"))
+      const correctedDate = new Date(date.setDate(date.getDate() + 1))
+      const formatted = format(correctedDate, "PPP")
       return <div>{formatted}</div>
     }
   },
