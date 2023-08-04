@@ -128,6 +128,9 @@ export const columns: ColumnDef<ApplicationWithId>[] = [
   {
     accessorKey: "company",
     header: "Company",
+    cell: ({ row }) => {
+      return <div className="font-semibold">{row.getValue("company")}</div>
+    }
   },
   {
     accessorKey: "applied_date",

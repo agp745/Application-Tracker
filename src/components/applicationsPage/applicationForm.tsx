@@ -64,7 +64,7 @@ export function ApplicationForm() {
         position: "",
         location: "",
         salary: "",
-        // application_type: "",
+        application_type: "website",
         cover_letter: false,
         status: "pending",
       }
@@ -86,7 +86,7 @@ export function ApplicationForm() {
       })
 
       const result = await res.json()
-      console.log(result)
+      // console.log(result)
       router.refresh()
 
       form.reset()
@@ -96,6 +96,8 @@ export function ApplicationForm() {
         title: "Application submitted sucessfully",
       })
     }
+
+    console.log(form.getValues('applied_date') !== undefined)
 
     return (
         <Form {...form}>
@@ -261,7 +263,14 @@ export function ApplicationForm() {
                     </FormItem>
                 )}
             />
-            <Button type="submit">Submit</Button>
+            {form.getValues("company") !== '' && 
+              form.getValues("position") !== '' &&  
+              form.getValues("location") !== '' && 
+              form.getValues('applied_date') !== undefined ? (
+              <Button type="submit" className="bg-white text-black hover:bg-neutral-100">Submit</Button>
+              ) : (
+              <Button type="submit">Submit</Button>
+            )}
           </form>
         </Form>
       )
