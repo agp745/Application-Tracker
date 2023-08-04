@@ -2,15 +2,11 @@
 
 ## Known Errors
 
-- date shows as day prior
-- website selection errors on default (needs to be reselected)
-- status sometimes changes when another application is added
+- statuses do not update correctly status is manually changed
 
 ## Planned Features
 
-- loading ui / skeleton
-- auto-complete ui fix
+- auto-complete ui update (remove light color)
 - google maps integration for location selection
 - protect application pages (only user can edit thier own table)
 - share / export table
-- add ghosted status
