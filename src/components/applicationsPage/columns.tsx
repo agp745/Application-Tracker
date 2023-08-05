@@ -1,6 +1,6 @@
 "use client"
 
-import type { Application, Status, ApplicationWithId } from "@/lib/utils/types"
+import type { Status, ApplicationWithId } from "@/lib/utils/types"
 import type { ColumnDefTemplate, CellContext, Row } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button"
 import { toast } from "@/components/ui/use-toast"
@@ -20,7 +20,6 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  DialogFooter
 } from "@/components/ui/dialog"
 
 import { useRouter } from "next/navigation"
@@ -28,8 +27,6 @@ import { UpdateForm } from "./updateForm"
 import { UpdateStatusDropdown } from "./updateStatus"
 
 import format from "date-fns/format"
-import parseISO from "date-fns/parseISO"
-import { utcToZonedTime } from "date-fns-tz";
 
 import { ArrowUpDown, MoreHorizontal } from "lucide-react"
 import { XMarkIcon, CheckIcon, ClockIcon } from '@heroicons/react/24/outline'
