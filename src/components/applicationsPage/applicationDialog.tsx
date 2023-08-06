@@ -27,7 +27,7 @@ export function ApplicationDialouge({ buttonName, title, description }: DialogPr
                     {buttonName}
                 </Button>
             </DialogTrigger>
-            <DialogContent className='bg-black text-white scale-95 sm:scale-100 overflow-scroll'>
+            <DialogContent className='bg-black text-white scale-90 sm:scale-100 overflow-y-scroll'>
                 <DialogHeader>
                     <DialogTitle>{title}</DialogTitle>
                     <DialogDescription>
