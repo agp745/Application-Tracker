@@ -14,8 +14,8 @@ export const AvatarPopover = ({ children }: { children: React.ReactNode}) => {
                 {children}
             </PopoverTrigger>
             <PopoverContent className="bg-black p-2 mr-2 relative">
-                <div className="absolute w-0 h-0 border-l-8 border-r-8 border-x-transparent border-b-8 border-b-neutral-200 -top-2 right-[18px]"></div>
-                <div className="absolute w-0 h-0 border-l-8 border-r-8 border-x-transparent border-b-8 border-b-black -top-[6px] right-[18px]"></div>
+                <div className="absolute w-0 h-0 border-l-8 border-r-8 border-x-transparent border-b-8 border-b-neutral-200 -top-2 right-[35px]"></div>
+                <div className="absolute w-0 h-0 border-l-8 border-r-8 border-x-transparent border-b-8 border-b-black -top-[6px] right-[35px]"></div>
                 <div className="flex flex-col gap-2">
                     <section className="text-purple-100 text-right text-sm font-light mb-5">
                         <div>{data?.user?.name}</div>

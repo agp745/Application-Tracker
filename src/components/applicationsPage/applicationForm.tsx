@@ -97,11 +97,9 @@ export function ApplicationForm() {
       })
     }
 
-    console.log(form.getValues('applied_date') !== undefined)
-
     return (
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3 scale-75 sm:scale-100">
             <FormField
               control={form.control}
               name="company"

@@ -29,12 +29,12 @@ export default async function ApplicationsPage({ params }: { params: {user_id: s
   
   return (
     <div className="container mx-auto py-5">
-      <div className="fixed top-0 right-0 p-4">
+      <div className="flex justify-between">
+        <ApplicationDialouge buttonName="add application" title="Add an Application" description="Fill out the following form"/>
         <AvatarPopover>
           <AvatarHeader user={user} />
         </AvatarPopover>
       </div>
-      <ApplicationDialouge buttonName="add application" title="Add an Application" description="Fill out the following form"/>
       {applications ? <DataTable columns={columns} data={transformedApplications} /> : <div>Error fetching data</div>}
     </div>
   )
