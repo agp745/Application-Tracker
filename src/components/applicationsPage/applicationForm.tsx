@@ -64,7 +64,7 @@ export function ApplicationForm() {
         position: "",
         location: "",
         salary: "",
-        application_type: "website",
+        application_type: "linkedin",
         cover_letter: false,
         status: "pending",
       }
@@ -203,7 +203,7 @@ export function ApplicationForm() {
                 name="application_type"
                 render={({field}) => (
                     <FormItem>
-                        <FormLabel>Application Type</FormLabel>
+                        <FormLabel>Applied Through</FormLabel>
                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                             <FormControl>
                                 <SelectTrigger className="border-neutral-700 ring-offset-black focus:ring-neutral-700">
@@ -211,9 +211,11 @@ export function ApplicationForm() {
                                 </SelectTrigger>
                             </FormControl>
                             <SelectContent>
-                                <SelectItem value="website">Website</SelectItem>
+                                {/* <SelectItem value="website">Website</SelectItem> */}
                                 <SelectItem value="linkedin">LinkedIn</SelectItem>
                                 <SelectItem value="indeed">Indeed</SelectItem>
+                                <SelectItem value="glassdoor">GlassDoor</SelectItem>
+                                <SelectItem value="monster">Monster</SelectItem>
                                 <SelectItem value="other">other</SelectItem>
                             </SelectContent>
                         </Select>

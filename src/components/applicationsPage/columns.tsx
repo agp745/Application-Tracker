@@ -176,7 +176,7 @@ export const columns: ColumnDef<ApplicationWithId>[] = [
   },
   {
     accessorKey: "application_type",
-    header: () => <div className="text-center">Application Type</div>,
+    header: () => <div className="text-center">Applied Through</div>,
     cell: ({row}) => {
       const applicationType = row.getValue("application_type") as string
       return <div className="text-center">{applicationType}</div>
