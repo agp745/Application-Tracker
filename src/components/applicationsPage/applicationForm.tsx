@@ -214,7 +214,7 @@ export function ApplicationForm() {
                                 {/* <SelectItem value="website">Website</SelectItem> */}
                                 <SelectItem value="linkedin">LinkedIn</SelectItem>
                                 <SelectItem value="indeed">Indeed</SelectItem>
-                                <SelectItem value="glassdoor">GlassDoor</SelectItem>
+                                <SelectItem value="glassdoor">Glassdoor</SelectItem>
                                 <SelectItem value="monster">Monster</SelectItem>
                                 <SelectItem value="other">other</SelectItem>
                             </SelectContent>
