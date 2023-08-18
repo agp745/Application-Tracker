@@ -44,10 +44,10 @@ const formSchema = z.object({
     applied_date: z.date({ required_error: "applied date is required" }),
     position: z.string({ required_error: "position is required" }).min(1),
     location: z.string({ required_error: "location is required" }).min(1),
-    salary: z.string(),
-    application_type: z.string({ required_error: "application type is required" }),
-    cover_letter: z.boolean({ required_error: "cover letter is required" }),
-    status: z.string({ required_error: "status is required" })
+    salary: z.string({ required_error: "salary is required" }).min(1),
+    application_type: z.string(),
+    cover_letter: z.boolean(),
+    status: z.string()
 })
 
 export function ApplicationForm() {
