@@ -44,7 +44,7 @@ const formSchema = z.object({
     applied_date: z.date({ required_error: "applied date is required" }),
     position: z.string({ required_error: "position is required" }).min(1),
     location: z.string({ required_error: "location is required" }).min(1),
-    salary: z.string({ required_error: "salary is required" }).min(1),
+    salary: z.string(),
     application_type: z.string(),
     cover_letter: z.boolean(),
     status: z.string()
@@ -193,7 +193,7 @@ export function ApplicationForm() {
                                 <Input placeholder="70,000" {...field} className="relative text-right" />
                             </div>
                         </FormControl>
-                        <FormDescription className="ml-2 italic">if no salary, enter <span className="font-bold">0</span></FormDescription>
+                       {/* <FormDescription className="ml-2 italic">if no salary, enter <span className="font-bold">0</span></FormDescription> */}
                         <FormMessage/>
                     </FormItem>
                 )}
