@@ -1,9 +1,12 @@
+"use client";
+
 import OAuthButton from "@/components/oAuthButton";
 import Image from "next/image";
-
-//fix styling for developed by part
+import { useSearchParams } from "next/navigation";
 
 export default function Login() {
+  const params = useSearchParams();
+
   return (
     <main className="flex flex-col justify-center items-center h-screen">
       <h1 className="mb-5 text-5xl font-bold text-white text-center">
@@ -33,15 +36,23 @@ export default function Login() {
       <div className="flex flex-col gap-2 w-2/3 sm:w-1/3 mt-10">
         <OAuthButton auth="google" />
         <OAuthButton auth="github" />
+        <LoginError error={params.get("error")} />
       </div>
     </main>
   );
 }
 
-// export default function Login() {
-//   return new Promise((resolve) => {
-//     setTimeout(() => {
-//       resolve(<div>LOGIN PAGE HERE</div>);
-//     }, 3000);
-//   });
-// }
+function LoginError({ error }: { error: string | null }) {
+  let errorMessage = "";
+
+  if (error === "OAuthAccountNotLinked") {
+    errorMessage =
+      "There is an error with your account. It is probably already linked with another oAuth account";
+  }
+
+  if (error === "Callback") {
+    errorMessage = "Callback Error. Try using another Auth provider";
+  }
+
+  return <div className="text-red-500 text-center">{errorMessage}</div>;
+}
