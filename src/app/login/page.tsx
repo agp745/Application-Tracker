@@ -54,6 +54,8 @@ function LoginError({ error }: { error: string | null }) {
     errorMessage = "Callback Error. Try using another Auth provider";
   }
 
+  // other error messages to account for: "UndefinedUser", "OAuthSignin"
+
   return <div className="text-red-500 text-center">{errorMessage}</div>;
 }
 
