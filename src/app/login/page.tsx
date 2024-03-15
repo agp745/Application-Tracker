@@ -45,16 +45,21 @@ export default function Login() {
 function LoginError({ error }: { error: string | null }) {
   let errorMessage = "";
 
-  if (error === "OAuthAccountNotLinked") {
-    errorMessage =
-      "There is an error with your account. It is probably already linked with another oAuth account";
+  // other error messages to account for: "OAuthSignin"
+  switch (error) {
+    case "OAuthAccountNotLinked":
+      errorMessage =
+        "There is an error with your account. It is probably already linked with another oAuth account";
+      break;
+    case "Callback":
+      errorMessage = "Callback Error. Try using another Auth provider";
+      break;
+    case "UndefinedUser":
+      errorMessage = "Undefined User. Try logging in again.";
+      break;
+    default:
+      errorMessage = "";
   }
-
-  if (error === "Callback") {
-    errorMessage = "Callback Error. Try using another Auth provider";
-  }
-
-  // other error messages to account for: "UndefinedUser", "OAuthSignin"
 
   return <div className="text-red-500 text-center">{errorMessage}</div>;
 }
