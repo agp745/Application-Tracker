@@ -1,18 +1,9 @@
-# README
+# Application Tracker
 
-## Known Errors
+(Application-Tracker)[https://app-tracker-three.vercel.app/] (very original name) is a web app which allows users to track their job search efficiently and easily.
 
-[] statuses do not update correctly status is manually changed
-[X] Salary should be nullable
-[] date selection should continue where left off.
-    - Bad keyboard nav
-[] BETTER UI LOADING
-
-## Planned Features
-
-[] column config save
-[] different themes
-[] Menu should close on submit
-[] protect application pages (only user can edit thier own table)
-[] share / export table
-[] Link to actual job posting
+## Technologies Used
+- *Language:* Typescript
+- *Front End:* Next.js, TailwindCSS
+- *Back End:* Next.js, Supabase, AWS Lambda, Prisma, EventBridge
+- *Validation:* Zod
