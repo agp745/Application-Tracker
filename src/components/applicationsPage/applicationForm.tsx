@@ -140,6 +140,7 @@ export function ApplicationForm() {
                   <Calendar
                     mode="single"
                     selected={field.value}
+                    // @ts-ignore
                     onSelect={field.onChange}
                     disabled={(date) =>
                       date > new Date() || date < new Date("1900-01-01")
@@ -273,9 +274,9 @@ export function ApplicationForm() {
           )}
         />
         {form.getValues("company") !== "" &&
-        form.getValues("position") !== "" &&
-        form.getValues("location") !== "" &&
-        form.getValues("applied_date") !== undefined ? (
+          form.getValues("position") !== "" &&
+          form.getValues("location") !== "" &&
+          form.getValues("applied_date") !== undefined ? (
           <Button
             type="submit"
             className="bg-white text-black hover:bg-neutral-100"
