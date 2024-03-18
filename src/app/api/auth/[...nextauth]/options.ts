@@ -10,10 +10,8 @@ export const options: NextAuthOptions = {
   adapter: PrismaAdapter(prisma) as Adapter,
   providers: [
     GithubProvider({
-      // clientId: process.env.GITHUB_CLIENTID as string,
-      // clientSecret: process.env.GITHUB_SECRET2 as string,
-      clientId: process.env.LOCAL_GH_ID as string,
-      clientSecret: process.env.LOCAL_GH_SECRET as string,
+      clientId: process.env.GITHUB_CLIENTID as string,
+      clientSecret: process.env.GITHUB_SECRET as string,
     }),
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENTID as string,
@@ -24,17 +22,6 @@ export const options: NextAuthOptions = {
     signIn: "/login",
   },
   callbacks: {
-    //   async signIn({ user, account, profile, email, credentials }) {
-    //     const isAllowedToSignIn = true;
-    //     if (isAllowedToSignIn) {
-    //       return true;
-    //     } else {
-    //       // Return false to display a default error message
-    //       return false;
-    //       // Or you can return a URL to redirect to:
-    //       // return '/unauthorized'
-    //     }
-    //   },
     async redirect({ url, baseUrl }) {
       // Allows relative callback URLs
       if (url.startsWith("/")) return `${baseUrl}${url}`;
