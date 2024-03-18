@@ -14,6 +14,5 @@ import Image from "next/image";
 // }
 
 export default function Loading() {
-  console.log("loading TOP LEVEL");
   return <h2>🌀 Loading...</h2>;
 }

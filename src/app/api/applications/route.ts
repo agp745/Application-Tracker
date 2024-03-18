@@ -14,11 +14,11 @@ import { da } from "date-fns/locale";
 export async function POST(req: Request) {
   const data = await req.json();
 
-  let salary: number
+  let salary: number;
   if (data.salary.length == 0) {
-    salary = 0
+    salary = 0;
   } else {
-    salary = numberParser(data.salary)
+    salary = numberParser(data.salary);
   }
 
   const body: Application = {
@@ -120,52 +120,6 @@ export async function DELETE(req: Request) {
     }
   }
 }
-
-// export async function PATCH(req: Request) {
-//     const data = await req.json()
-//     const salary = numberParser(data.salary)
-//     const updatedData: Application = {
-//         company: data.company,
-//         applied_date: data.applied_date,
-//         position: data.position,
-//         location: data.location,
-//         salary: salary,
-//         application_type: data.application_type,
-//         cover_letter: data.cover_letter,
-//         status: data.status
-//     }
-
-//     try {
-//         const { updatedApplication, error } = await updateApplication(data.id, updatedData)
-//         if (error) throw new Error (JSON.stringify(error))
-//         return NextResponse.json({ success: true, updatedApplication })
-//     } catch (e) {
-//         if (e instanceof Prisma.PrismaClientInitializationError) {
-//             console.log(1)
-//             return NextResponse.json({ success: false, error: { code: e.errorCode, message: e.message } })
-//         }
-//         else if (e instanceof Prisma.PrismaClientKnownRequestError) {
-//             console.log(2)
-//             return NextResponse.json({ success: false, error: { code: e.code, message: e.message } })
-//         }
-//         else if (e instanceof Prisma.PrismaClientRustPanicError) {
-//             console.log(3)
-//             return NextResponse.json({ success: false, error: { code: e.cause, message: e.message } })
-//         }
-//         else if (e instanceof Prisma.PrismaClientUnknownRequestError) {
-//             console.log(4)
-//             return NextResponse.json({ success: false, error: { code: e.cause, message: e.message } })
-//         }
-//         else if (e instanceof Prisma.PrismaClientValidationError) {
-//             console.log(5)
-//             return NextResponse.json({ success: false, error: { code: e.cause, message: e.message } })
-//         }
-//         else {
-//             console.log(6)
-//             return NextResponse.json({ success: false, error: getErrorMessage(e)})
-//         }
-//     }
-// }
 
 export async function PATCH(req: Request) {
   const data = await req.json();

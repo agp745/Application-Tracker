@@ -7,6 +7,7 @@ import { ApplicationDialouge } from "../../../components/applicationsPage/applic
 import { AvatarHeader } from "@/components/applicationsPage/avatar";
 import { AvatarPopover } from "@/components/applicationsPage/avatarPopover";
 import { redirect } from "next/navigation";
+import { AdapterUser } from "next-auth/adapters";
 
 export const revalidate = 0;
 
@@ -47,7 +48,7 @@ export default async function ApplicationsPage({
           description="Fill out the following form"
         />
         <AvatarPopover>
-          <AvatarHeader user={user} />
+          <AvatarHeader user={user as AdapterUser} />
         </AvatarPopover>
       </div>
       {applications ? (
